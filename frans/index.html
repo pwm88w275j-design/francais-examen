@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Français Examen</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Français">
+<meta name="theme-color" content="#f6f4ee" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#16181d" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+:root{
+  --bg:#f6f4ee; --card:#ffffff; --ink:#1f2328; --muted:#6a6f78; --line:#e4e1d8;
+  --green:#2f9e44; --green-d:#237a34; --green-t:#e6f4ea;
+  --red:#d9480f; --red-d:#a83a0c; --red-t:#fdebe3;
+  --gold:#e8a200; --blue:#1c6dd0; --blue-d:#14529e; --blue-t:#e7f0fb;
+  --shadow:0 1px 0 rgba(0,0,0,.04);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#16181d; --card:#20232a; --ink:#eceff3; --muted:#9aa1ad; --line:#2e323b;
+    --green:#3cb35a; --green-d:#2a8442; --green-t:#1d3326;
+    --red:#ef6a35; --red-d:#b8501f; --red-t:#3a2219;
+    --gold:#f2b42a; --blue:#4c8fe6; --blue-d:#356bb3; --blue-t:#1c2a3d;
+  }
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif}
+body{min-height:100vh;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+#app{max-width:520px;margin:0 auto;padding:12px 16px 32px}
+h1,h2,h3{margin:0;line-height:1.2}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer}
+.muted{color:var(--muted)}
+.row{display:flex;align-items:center;gap:10px}
+.spacer{flex:1}
+
+/* buttons */
+.btn{display:block;width:100%;padding:15px 16px;border-radius:14px;font-weight:700;font-size:16px;letter-spacing:.2px;text-align:center;transition:transform .05s}
+.btn:active{transform:translateY(2px)}
+.btn-green{background:var(--green);color:#fff;box-shadow:0 4px 0 var(--green-d)}
+.btn-green:active{box-shadow:0 2px 0 var(--green-d)}
+.btn-red{background:var(--red);color:#fff;box-shadow:0 4px 0 var(--red-d)}
+.btn-red:active{box-shadow:0 2px 0 var(--red-d)}
+.btn-blue{background:var(--blue);color:#fff;box-shadow:0 4px 0 var(--blue-d)}
+.btn-blue:active{box-shadow:0 2px 0 var(--blue-d)}
+.btn-ghost{background:var(--card);border:2px solid var(--line);box-shadow:0 3px 0 var(--line)}
+.btn[disabled]{opacity:.45;pointer-events:none}
+
+/* top stats */
+.stats{display:flex;gap:8px;margin:4px 0 16px}
+.stat{flex:1;background:var(--card);border:2px solid var(--line);border-radius:14px;padding:8px 10px;text-align:center}
+.stat b{display:block;font-size:20px}
+.stat span{font-size:12px;color:var(--muted)}
+
+.card{background:var(--card);border:2px solid var(--line);border-radius:18px;padding:16px;box-shadow:var(--shadow)}
+.hero{display:flex;gap:16px;align-items:center;margin-bottom:12px}
+.ring{width:72px;height:72px;flex:none}
+.hero h2{font-size:18px}
+.mt8{margin-top:8px}.mt12{margin-top:12px}.mt16{margin-top:16px}.mt24{margin-top:24px}
+
+.bar{height:10px;background:var(--line);border-radius:6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--green);border-radius:6px;transition:width .3s}
+
+.section-title{font-size:13px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);font-weight:700;margin:24px 2px 8px}
+.week{display:flex;gap:12px;align-items:center;width:100%;text-align:left;margin-bottom:10px}
+.badge{width:46px;height:46px;flex:none;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:18px;background:var(--blue-t);color:var(--blue);border:2px solid var(--blue)}
+.badge.done{background:var(--green);color:#fff;border-color:var(--green-d)}
+.week .t{font-weight:700}
+.week .s{font-size:13px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.week .grow{flex:1;min-width:0}
+
+.lesson{display:flex;gap:12px;align-items:center;width:100%;text-align:left;margin-bottom:10px}
+.ico{width:46px;height:46px;flex:none;border-radius:14px;display:grid;place-items:center;font-size:22px;background:var(--green-t)}
+.lesson .grow{flex:1;min-width:0}
+.lesson .t{font-weight:700}
+.lesson .s{font-size:13px;color:var(--muted)}
+
+.topbar{display:flex;align-items:center;gap:12px;margin:4px 0 16px}
+.x{width:36px;height:36px;border-radius:10px;font-size:22px;color:var(--muted);display:grid;place-items:center}
+.topbar .bar{flex:1;height:14px}
+
+.kind{font-size:13px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.6px}
+.consigne{font-size:14px;color:var(--muted);margin-top:4px}
+.q{font-size:22px;font-weight:650;margin:14px 0 8px;line-height:1.35;word-wrap:break-word}
+.q.read{font-size:20px}
+.answer{border-radius:16px;padding:14px 16px;margin-top:14px;background:var(--green-t);border:2px solid var(--green)}
+.answer .a{font-size:19px;font-weight:650;line-height:1.4}
+.answer .xx{font-size:15px;color:var(--muted);margin-top:8px;font-style:italic}
+.body{font-size:17px;line-height:1.55;margin-top:6px}
+s{color:var(--red);text-decoration-thickness:2px}
+.stage{min-height:52vh}
+.actions{position:sticky;bottom:0;padding:14px 0 calc(8px + env(safe-area-inset-bottom));background:linear-gradient(to top,var(--bg) 75%,transparent)}
+.two{display:flex;gap:10px}.two .btn{flex:1}
+
+.center{text-align:center}
+.big{font-size:56px;line-height:1}
+.input{width:100%;padding:14px 16px;border-radius:14px;border:2px solid var(--line);background:var(--card);color:var(--ink);font-size:17px}
+.err{color:var(--red);font-weight:600;min-height:1.4em}
+.pill{display:inline-block;padding:4px 10px;border-radius:999px;background:var(--blue-t);color:var(--blue);font-weight:700;font-size:13px}
+.goalopts{display:flex;gap:8px}.goalopts .btn{padding:12px 0}
+.sel{border-color:var(--green)!important;box-shadow:0 3px 0 var(--green-d)!important}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:12px;font-weight:600;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.on{opacity:.92}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<div class="toast" id="toast"></div>
+<script>
+"use strict";
+const $ = s => document.querySelector(s);
+const app = $('#app');
+const KIND = {
+  regle:{label:'Règles du Guide', ico:'📘', mode:'read', prompt:'À lire'},
+  conj:{label:'Conjugaison – résumé', ico:'⏳', mode:'read', prompt:'À lire'},
+  gram:{label:'Grammaire', ico:'✍️', mode:'flash', prompt:'Complète'},
+  lex:{label:'Lexique militaire', ico:'🪖', mode:'flash', prompt:'Traduis en français'},
+  faux:{label:'Faux amis', ico:'⚠️', mode:'flash', prompt:'Le mot français correct ?'},
+  cons:{label:'Constructions', ico:'🔗', mode:'flash', prompt:'Quelle construction ?'}
+};
+const ORDER = ['regle','conj','gram','lex','faux','cons'];
+const IV = [0,1,2,4,8,16,32];
+const SESSION = 10, REVIEW = 15, READ = 5;
+let D = null, byLesson = {}, byId = {}, P = null;
+
+/* ---------- storage ---------- */
+function ls(k, v){ try{ if(v===undefined) return localStorage.getItem(k); if(v===null) localStorage.removeItem(k); else localStorage.setItem(k, v);}catch(e){ return null; } }
+function today(){ const d=new Date(); return Math.floor((d.getTime() - d.getTimezoneOffset()*60000)/86400000); }
+function loadP(){ try{ P = JSON.parse(ls('fr_prog')||'null'); }catch(e){ P=null; }
+  if(!P) P = {c:{}, xp:0, streak:0, last:null, day:today(), n:0, goal:20};
+  if(P.day!==today()){ P.day=today(); P.n=0; }
+  if(P.last!==null && P.last < today()-1) P.streak=0;
+}
+function saveP(){ ls('fr_prog', JSON.stringify(P)); }
+
+/* ---------- crypto ---------- */
+const b64 = { enc:u=>btoa(String.fromCharCode(...new Uint8Array(u))), dec:s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0)) };
+async function getBlob(){ const r = await fetch('data.enc', {cache:'no-cache'}).catch(()=>null) || await caches.match('data.enc'); if(!r || !r.ok) throw new Error('nodata'); return new Uint8Array(await r.arrayBuffer()); }
+async function deriveRaw(pw, salt){
+  const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pw), 'PBKDF2', false, ['deriveBits']);
+  return crypto.subtle.deriveBits({name:'PBKDF2', hash:'SHA-256', salt, iterations:250000}, base, 256);
+}
+async function decrypt(blob, raw){
+  const key = await crypto.subtle.importKey('raw', raw, 'AES-GCM', false, ['decrypt']);
+  const pt = await crypto.subtle.decrypt({name:'AES-GCM', iv:blob.slice(16,28)}, key, blob.slice(28));
+  return JSON.parse(new TextDecoder().decode(pt));
+}
+async function unlockWith(raw){
+  const blob = await getBlob();
+  D = await decrypt(blob, raw);
+  index();
+}
+function index(){
+  byLesson = {}; byId = {};
+  D.cards.forEach(c=>{ (byLesson[c.l] = byLesson[c.l] || []).push(c); byId[c.id]=c; });
+}
+
+/* ---------- helpers ---------- */
+function esc(s){ return String(s||'').replace(/[&<>"]/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m])); }
+function fmt(s){ return esc(s).replace(/~~(.+?)~~/g,'<s>$1</s>').replace(/\n/g,'<br>'); }
+function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function toast(t){ const el=$('#toast'); el.textContent=t; el.classList.add('on'); clearTimeout(toast.t); toast.t=setTimeout(()=>el.classList.remove('on'),1600); }
+function lessonsOf(w){ return D.lessons.filter(l=>l.week===w && l.n>0).sort((a,b)=>ORDER.indexOf(a.kind)-ORDER.indexOf(b.kind)); }
+function mastered(lid){ return (byLesson[lid]||[]).filter(c=>P.c[c.id] && P.c[c.id][0]>=3).length; }
+function seen(lid){ return (byLesson[lid]||[]).filter(c=>P.c[c.id]).length; }
+function dueCards(){ const t=today(); return D.cards.filter(c=>{ const s=P.c[c.id]; return s && KIND[lessonById(c.l).kind].mode==='flash' && s[1]<=t; }); }
+let _lmap=null; function lessonById(id){ if(!_lmap){ _lmap={}; D.lessons.forEach(l=>_lmap[l.id]=l);} return _lmap[id]; }
+function weekPct(w){ const ls_=lessonsOf(w); const tot=ls_.reduce((s,l)=>s+l.n,0); const m=ls_.reduce((s,l)=>s+mastered(l.id),0); return tot? m/tot : 0; }
+function nextLesson(){
+  for(const w of D.weeks){ for(const l of lessonsOf(w.n)){ if(seen(l.id) < l.n) return l; } }
+  return null;
+}
+function ring(p){
+  const r=30, c=2*Math.PI*r, off=c*(1-Math.min(1,p));
+  return `<svg class="ring" viewBox="0 0 72 72" aria-hidden="true"><circle cx="36" cy="36" r="${r}" fill="none" stroke="var(--line)" stroke-width="8"/><circle cx="36" cy="36" r="${r}" fill="none" stroke="var(--green)" stroke-width="8" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${off}" transform="rotate(-90 36 36)"/><text x="36" y="41" text-anchor="middle" font-size="15" font-weight="800" fill="var(--ink)">${Math.round(Math.min(1,p)*100)}%</text></svg>`;
+}
+
+/* ---------- screens ---------- */
+function lockScreen(msg){
+  app.innerHTML = `
+  <div class="center mt24"><div class="big">🇫🇷</div><h1 class="mt12">Français Examen</h1>
+  <p class="muted">Connaissance approfondie – 2e langue nationale</p></div>
+  <div class="card mt24">
+    <label for="pw" class="kind">Mot de passe</label>
+    <input id="pw" class="input mt8" type="password" autocomplete="current-password" autocapitalize="off" autocorrect="off" placeholder="Mot de passe">
+    <div class="err mt8" id="err">${msg||''}</div>
+    <button class="btn btn-green mt8" id="go">Déverrouiller</button>
+    <p class="muted mt12" style="font-size:14px">À faire une seule fois, avec internet. Ensuite, l'app fonctionne hors ligne.</p>
+  </div>`;
+  const go = async ()=>{
+    const pw = $('#pw').value.trim(); if(!pw) return;
+    $('#go').disabled = true; $('#go').textContent='Ouverture…';
+    try{
+      const blob = await getBlob();
+      const raw = await deriveRaw(pw, blob.slice(0,16));
+      D = await decrypt(blob, raw); index();
+      ls('fr_key', b64.enc(raw)); home();
+    }catch(e){
+      $('#go').disabled=false; $('#go').textContent='Déverrouiller';
+      $('#err').textContent = e.message==='nodata' ? "Données introuvables : ouvre l'app une première fois avec internet." : 'Mot de passe incorrect.';
+    }
+  };
+  $('#go').onclick = go; $('#pw').onkeydown = e=>{ if(e.key==='Enter') go(); };
+}
+
+function home(){
+  loadP(); _lmap=null;
+  const due = dueCards().length, nl = nextLesson();
+  const p = P.n / P.goal;
+  app.innerHTML = `
+  <div class="row"><h1 style="font-size:24px">Français Examen</h1><div class="spacer"></div><button class="x" id="set" aria-label="Réglages">⚙️</button></div>
+  <div class="stats mt12">
+    <div class="stat"><b>🔥 ${P.streak}</b><span>jours de suite</span></div>
+    <div class="stat"><b>⭐ ${P.xp}</b><span>points</span></div>
+    <div class="stat"><b>${dueCountLabel(due)}</b><span>à réviser</span></div>
+  </div>
+  <div class="card">
+    <div class="hero">${ring(p)}<div><h2>Objectif du jour</h2><div class="muted">${P.n} / ${P.goal} cartes${P.n>=P.goal?' – atteint !':''}</div></div></div>
+    ${nl ? `<button class="btn btn-green" id="cont">Continuer · S${nl.week} ${esc(KIND[nl.kind].label)}</button>` : `<div class="muted center">Toutes les leçons sont commencées. Bravo !</div>`}
+    <button class="btn btn-blue mt12" id="rev" ${due?'':'disabled'}>Révision · ${due} carte${due>1?'s':''}</button>
+  </div>
+  <div class="section-title">Les 12 semaines</div>
+  <div id="weeks"></div>`;
+  $('#weeks').innerHTML = D.weeks.map(w=>{
+    const pc = weekPct(w.n);
+    return `<button class="card week" data-w="${w.n}">
+      <div class="badge ${pc>=.999?'done':''}">${pc>=.999?'✓':w.n}</div>
+      <div class="grow"><div class="t">Semaine ${w.n}</div><div class="s">${esc(w.title)} · ${esc(w.date)}</div>
+      <div class="bar mt8"><i style="width:${Math.round(pc*100)}%"></i></div></div></button>`;
+  }).join('');
+  document.querySelectorAll('.week').forEach(b=>b.onclick=()=>week(+b.dataset.w));
+  if(nl) $('#cont').onclick=()=>startLesson(nl.id);
+  $('#rev').onclick=startReview;
+  $('#set').onclick=settings;
+}
+function dueCountLabel(n){ return '🔁 '+n; }
+
+function week(w){
+  const W = D.weeks.find(x=>x.n===w);
+  app.innerHTML = `
+  <div class="topbar"><button class="x" id="back" aria-label="Retour">‹</button><div><div class="kind">Semaine ${w} · ${esc(W.date)}</div><h2>${esc(W.title)}</h2></div></div>
+  <div id="ls"></div>`;
+  $('#ls').innerHTML = lessonsOf(w).map(l=>{
+    const k=KIND[l.kind], m=mastered(l.id), pc=l.n? m/l.n:0;
+    return `<button class="card lesson" data-l="${l.id}"><div class="ico">${k.ico}</div>
+      <div class="grow"><div class="t">${esc(k.label)}</div><div class="s">${k.mode==='read'? `${seen(l.id)} / ${l.n} règles lues` : `${m} / ${l.n} maîtrisées`}</div>
+      <div class="bar mt8"><i style="width:${Math.round(pc*100)}%"></i></div></div></button>`;
+  }).join('');
+  document.querySelectorAll('.lesson').forEach(b=>b.onclick=()=>startLesson(b.dataset.l));
+  $('#back').onclick=home;
+}
+
+/* ---------- sessions ---------- */
+let S = null;
+function startLesson(lid){
+  const L = lessonById(lid), k = KIND[L.kind], all = byLesson[lid], t = today();
+  let q;
+  if(k.mode==='read'){
+    q = all.filter(c=>!P.c[c.id]).slice(0, READ);
+    if(!q.length) q = all.slice(0, READ*2);
+  }else{
+    const due = shuffle(all.filter(c=>P.c[c.id] && P.c[c.id][1]<=t && P.c[c.id][0]<6));
+    const fresh = all.filter(c=>!P.c[c.id]);
+    q = due.concat(fresh).slice(0, SESSION);
+    if(!q.length) q = shuffle(all.slice()).slice(0, SESSION);
+  }
+  S = {title:`S${L.week} · ${k.label}`, queue:q.slice(), total:q.length, done:0, ok:0, retried:new Set(), back:()=>week(L.week)};
+  card();
+}
+function startReview(){
+  const q = shuffle(dueCards()).slice(0, REVIEW);
+  if(!q.length) return;
+  S = {title:'Révision', queue:q.slice(), total:q.length, done:0, ok:0, retried:new Set(), back:home};
+  card();
+}
+function grade(c, good){
+  const t = today(), s = P.c[c.id] || [0, t];
+  let box = s[0];
+  if(good){ box = Math.min(box+1, 6); P.c[c.id] = [box, t+IV[box]]; }
+  else { P.c[c.id] = [0, t]; }
+  tick(good && !S.retried.has(c.id));
+}
+function tick(xp){
+  const t = today();
+  if(P.last !== t){ P.streak = (P.last === t-1) ? P.streak+1 : 1; P.last = t; }
+  P.n++; if(xp) P.xp += 10;
+  saveP();
+}
+function card(){
+  if(!S.queue.length) return finish();
+  const c = S.queue[0], L = lessonById(c.l), k = KIND[L.kind], read = k.mode==='read';
+  const pc = S.done / S.total;
+  app.innerHTML = `
+  <div class="topbar"><button class="x" id="quit" aria-label="Quitter">✕</button><div class="bar"><i style="width:${Math.round(pc*100)}%"></i></div></div>
+  <div class="stage">
+    <div class="kind">${k.ico} ${esc(S.title)}</div>
+    ${c.c ? `<div class="consigne">${esc(c.c)}</div>` : (read? '' : `<div class="consigne">${esc(k.prompt)}</div>`)}
+    <div class="q ${read?'read':''}">${fmt(c.q)}</div>
+    ${read ? `<div class="body">${fmt(c.a)}</div>` : `<div id="ans"></div>`}
+  </div>
+  <div class="actions" id="act">
+    ${read ? `<button class="btn btn-green" id="next">Compris</button>`
+           : `<button class="btn btn-blue" id="show">Voir la réponse</button>`}
+  </div>`;
+  $('#quit').onclick = ()=>{ S=null; home(); };
+  if(read){
+    $('#next').onclick = ()=>{ const t=today(); P.c[c.id] = [3, t+IV[3]]; tick(true); S.queue.shift(); S.done++; S.ok++; card(); };
+    return;
+  }
+  $('#show').onclick = ()=>{
+    $('#ans').innerHTML = `<div class="answer"><div class="a">${fmt(c.a)}</div>${c.x?`<div class="xx">${fmt(c.x)}</div>`:''}</div>`;
+    $('#act').innerHTML = `<div class="two"><button class="btn btn-red" id="bad">À revoir</button><button class="btn btn-green" id="good">Je savais</button></div>`;
+    $('#good').onclick = ()=>{ grade(c, true); S.queue.shift(); S.done++; if(!S.retried.has(c.id)) S.ok++; card(); };
+    $('#bad').onclick = ()=>{ grade(c, false); S.queue.shift(); if(!S.retried.has(c.id)){ S.retried.add(c.id); S.queue.push(c); S.total++; } S.done++; card(); };
+  };
+}
+function finish(){
+  const first = S.total - S.retried.size;
+  const pct = first ? Math.round(100*S.ok/first) : 100;
+  const msg = pct>=90 ? 'Excellent !' : pct>=70 ? 'Bien joué !' : pct>=50 ? 'Ça progresse.' : 'On reprendra ces cartes en révision.';
+  app.innerHTML = `
+  <div class="center mt24"><div class="big">${pct>=70?'🎉':'💪'}</div><h1 class="mt12">${msg}</h1>
+  <p class="muted">${S.ok} juste${S.ok>1?'s':''} du premier coup sur ${first}</p></div>
+  <div class="stats mt24"><div class="stat"><b>+${S.ok*10}</b><span>points</span></div><div class="stat"><b>🔥 ${P.streak}</b><span>jours de suite</span></div><div class="stat"><b>${P.n}/${P.goal}</b><span>aujourd'hui</span></div></div>
+  <button class="btn btn-green mt24" id="again">Continuer</button>
+  <button class="btn btn-ghost mt12" id="h">Accueil</button>`;
+  const back = S.back; S = null;
+  $('#again').onclick = back; $('#h').onclick = home;
+}
+
+/* ---------- settings ---------- */
+function settings(){
+  app.innerHTML = `
+  <div class="topbar"><button class="x" id="back" aria-label="Retour">‹</button><h2>Réglages</h2></div>
+  <div class="card"><div class="kind">Objectif quotidien</div>
+    <div class="goalopts mt12">${[10,20,30,50].map(g=>`<button class="btn btn-ghost ${P.goal===g?'sel':''}" data-g="${g}">${g}</button>`).join('')}</div>
+    <p class="muted mt12" style="font-size:14px">Nombre de cartes par jour.</p></div>
+  <div class="card mt16"><div class="kind">Progression</div>
+    <p class="mt8">${Object.keys(P.c).length} cartes vues sur ${D.cards.length}.</p>
+    <button class="btn btn-ghost mt8" id="reset">Remettre à zéro</button></div>
+  <div class="card mt16"><div class="kind">Sécurité</div>
+    <p class="mt8 muted" style="font-size:14px">Le contenu est chiffré. Le verrouillage demande à nouveau le mot de passe (internet pas nécessaire).</p>
+    <button class="btn btn-ghost mt8" id="lock">Verrouiller l'app</button></div>
+  <p class="muted center mt24" style="font-size:13px">Sources : CL 001-16, 001-36, 001-37, 001-38, 001-39 (Centre linguistique).</p>`;
+  document.querySelectorAll('[data-g]').forEach(b=>b.onclick=()=>{ P.goal=+b.dataset.g; saveP(); settings(); });
+  $('#back').onclick=home;
+  $('#reset').onclick=function(){ if(this.dataset.c){ P={c:{},xp:0,streak:0,last:null,day:today(),n:0,goal:P.goal}; saveP(); toast('Progression remise à zéro'); settings(); } else { this.dataset.c=1; this.textContent='Appuie encore pour confirmer'; this.classList.add('btn-red'); } };
+  $('#lock').onclick=()=>{ ls('fr_key', null); D=null; lockScreen(); };
+}
+
+/* ---------- boot ---------- */
+(async function(){
+  loadP();
+  if('serviceWorker' in navigator){ navigator.serviceWorker.register('sw.js').catch(()=>{}); }
+  const k = ls('fr_key');
+  if(k){
+    try{ await unlockWith(b64.dec(k)); home(); return; }
+    catch(e){ lockScreen(e.message==='nodata' ? "Données introuvables : ouvre l'app avec internet." : ''); return; }
+  }
+  lockScreen();
+})();
+</script>
+</body>
+</html>
